@@ -1,0 +1,16 @@
+model dataset iteration time 2000 4000 6000
+model-01 dataset-01 1 41.22 98.38 98.74 99.05
+model-01 dataset-01 2 40.36 98.16 98.83 98.96
+model-01 dataset-01 3 40.35 97.85 98.45 98.7
+
+TRAINING TIME 
+Mean time: 40.6433, Max time: 41.22, Std dev time: 0.4078
+
+SNAPSHOT 2000
+Mean accuracy: 98.13, Max accuracy: 98.38, Std dev accuracy: 0.2174
+
+SNAPSHOT 4000
+Mean accuracy: 98.6733, Max accuracy: 98.83, Std dev accuracy: 0.1621
+
+SNAPSHOT 6000
+Mean accuracy: 98.9033, Max accuracy: 99.05, Std dev accuracy: 0.1484

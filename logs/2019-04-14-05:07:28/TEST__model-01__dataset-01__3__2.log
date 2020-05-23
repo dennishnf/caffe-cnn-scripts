@@ -1,0 +1,436 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+W0414 05:11:36.989696  3441 _caffe.cpp:139] DEPRECATION WARNING - deprecated use of Python interface
+W0414 05:11:36.989719  3441 _caffe.cpp:140] Use this instead (with the named "weights" parameter):
+W0414 05:11:36.989723  3441 _caffe.cpp:142] Net('/home/dennis/Desktop/cnn-caffe/models/model-01/model_deploy.prototxt', 1, weights='/home/dennis/Desktop/cnn-caffe/models/model-01/train_iter_6000.caffemodel')
+I0414 05:11:37.190034  3441 net.cpp:51] Initializing net from parameters: 
+name: "Model"
+state {
+  phase: TEST
+  level: 0
+}
+layer {
+  name: "data"
+  type: "Input"
+  top: "data"
+  input_param {
+    shape {
+      dim: 1
+      dim: 1
+      dim: 28
+      dim: 28
+    }
+  }
+}
+layer {
+  name: "conv1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 16
+    pad: 3
+    kernel_size: 7
+    stride: 1
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu1"
+  type: "ReLU"
+  bottom: "conv1"
+  top: "conv1"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  convolution_param {
+    num_output: 32
+    pad: 2
+    kernel_size: 5
+    stride: 1
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu2"
+  type: "ReLU"
+  bottom: "conv2"
+  top: "conv2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "ip1"
+  type: "InnerProduct"
+  bottom: "pool2"
+  top: "ip1"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 480
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu3"
+  type: "ReLU"
+  bottom: "ip1"
+  top: "ip1"
+}
+layer {
+  name: "ip2"
+  type: "InnerProduct"
+  bottom: "ip1"
+  top: "ip2"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 200
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "relu4"
+  type: "ReLU"
+  bottom: "ip2"
+  top: "ip2"
+}
+layer {
+  name: "ip3"
+  type: "InnerProduct"
+  bottom: "ip2"
+  top: "ip3"
+  param {
+    lr_mult: 1
+  }
+  param {
+    lr_mult: 2
+  }
+  inner_product_param {
+    num_output: 10
+    weight_filler {
+      type: "xavier"
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "prob"
+  type: "Softmax"
+  bottom: "ip3"
+  top: "prob"
+}
+I0414 05:11:37.190105  3441 layer_factory.hpp:77] Creating layer data
+I0414 05:11:37.190124  3441 net.cpp:84] Creating Layer data
+I0414 05:11:37.190134  3441 net.cpp:380] data -> data
+I0414 05:11:37.190148  3441 net.cpp:122] Setting up data
+I0414 05:11:37.190157  3441 net.cpp:129] Top shape: 1 1 28 28 (784)
+I0414 05:11:37.190160  3441 net.cpp:137] Memory required for data: 3136
+I0414 05:11:37.190165  3441 layer_factory.hpp:77] Creating layer conv1
+I0414 05:11:37.190179  3441 net.cpp:84] Creating Layer conv1
+I0414 05:11:37.190187  3441 net.cpp:406] conv1 <- data
+I0414 05:11:37.190196  3441 net.cpp:380] conv1 -> conv1
+I0414 05:11:37.601599  3441 net.cpp:122] Setting up conv1
+I0414 05:11:37.601629  3441 net.cpp:129] Top shape: 1 16 28 28 (12544)
+I0414 05:11:37.601632  3441 net.cpp:137] Memory required for data: 53312
+I0414 05:11:37.601649  3441 layer_factory.hpp:77] Creating layer relu1
+I0414 05:11:37.601661  3441 net.cpp:84] Creating Layer relu1
+I0414 05:11:37.601667  3441 net.cpp:406] relu1 <- conv1
+I0414 05:11:37.601673  3441 net.cpp:367] relu1 -> conv1 (in-place)
+I0414 05:11:37.601825  3441 net.cpp:122] Setting up relu1
+I0414 05:11:37.601835  3441 net.cpp:129] Top shape: 1 16 28 28 (12544)
+I0414 05:11:37.601840  3441 net.cpp:137] Memory required for data: 103488
+I0414 05:11:37.601843  3441 layer_factory.hpp:77] Creating layer pool1
+I0414 05:11:37.601851  3441 net.cpp:84] Creating Layer pool1
+I0414 05:11:37.601856  3441 net.cpp:406] pool1 <- conv1
+I0414 05:11:37.601862  3441 net.cpp:380] pool1 -> pool1
+I0414 05:11:37.601881  3441 net.cpp:122] Setting up pool1
+I0414 05:11:37.601891  3441 net.cpp:129] Top shape: 1 16 14 14 (3136)
+I0414 05:11:37.601896  3441 net.cpp:137] Memory required for data: 116032
+I0414 05:11:37.601899  3441 layer_factory.hpp:77] Creating layer conv2
+I0414 05:11:37.601912  3441 net.cpp:84] Creating Layer conv2
+I0414 05:11:37.601918  3441 net.cpp:406] conv2 <- pool1
+I0414 05:11:37.601925  3441 net.cpp:380] conv2 -> conv2
+I0414 05:11:37.602561  3441 net.cpp:122] Setting up conv2
+I0414 05:11:37.602573  3441 net.cpp:129] Top shape: 1 32 14 14 (6272)
+I0414 05:11:37.602578  3441 net.cpp:137] Memory required for data: 141120
+I0414 05:11:37.602589  3441 layer_factory.hpp:77] Creating layer relu2
+I0414 05:11:37.602597  3441 net.cpp:84] Creating Layer relu2
+I0414 05:11:37.602603  3441 net.cpp:406] relu2 <- conv2
+I0414 05:11:37.602610  3441 net.cpp:367] relu2 -> conv2 (in-place)
+I0414 05:11:37.602754  3441 net.cpp:122] Setting up relu2
+I0414 05:11:37.602763  3441 net.cpp:129] Top shape: 1 32 14 14 (6272)
+I0414 05:11:37.602767  3441 net.cpp:137] Memory required for data: 166208
+I0414 05:11:37.602772  3441 layer_factory.hpp:77] Creating layer pool2
+I0414 05:11:37.602779  3441 net.cpp:84] Creating Layer pool2
+I0414 05:11:37.602785  3441 net.cpp:406] pool2 <- conv2
+I0414 05:11:37.602792  3441 net.cpp:380] pool2 -> pool2
+I0414 05:11:37.602804  3441 net.cpp:122] Setting up pool2
+I0414 05:11:37.602813  3441 net.cpp:129] Top shape: 1 32 7 7 (1568)
+I0414 05:11:37.602819  3441 net.cpp:137] Memory required for data: 172480
+I0414 05:11:37.602823  3441 layer_factory.hpp:77] Creating layer ip1
+I0414 05:11:37.602833  3441 net.cpp:84] Creating Layer ip1
+I0414 05:11:37.602838  3441 net.cpp:406] ip1 <- pool2
+I0414 05:11:37.602845  3441 net.cpp:380] ip1 -> ip1
+I0414 05:11:37.606833  3441 net.cpp:122] Setting up ip1
+I0414 05:11:37.606845  3441 net.cpp:129] Top shape: 1 480 (480)
+I0414 05:11:37.606848  3441 net.cpp:137] Memory required for data: 174400
+I0414 05:11:37.606858  3441 layer_factory.hpp:77] Creating layer relu3
+I0414 05:11:37.606866  3441 net.cpp:84] Creating Layer relu3
+I0414 05:11:37.606873  3441 net.cpp:406] relu3 <- ip1
+I0414 05:11:37.606878  3441 net.cpp:367] relu3 -> ip1 (in-place)
+I0414 05:11:37.607199  3441 net.cpp:122] Setting up relu3
+I0414 05:11:37.607209  3441 net.cpp:129] Top shape: 1 480 (480)
+I0414 05:11:37.607213  3441 net.cpp:137] Memory required for data: 176320
+I0414 05:11:37.607218  3441 layer_factory.hpp:77] Creating layer ip2
+I0414 05:11:37.607225  3441 net.cpp:84] Creating Layer ip2
+I0414 05:11:37.607233  3441 net.cpp:406] ip2 <- ip1
+I0414 05:11:37.607239  3441 net.cpp:380] ip2 -> ip2
+I0414 05:11:37.607661  3441 net.cpp:122] Setting up ip2
+I0414 05:11:37.607668  3441 net.cpp:129] Top shape: 1 200 (200)
+I0414 05:11:37.607671  3441 net.cpp:137] Memory required for data: 177120
+I0414 05:11:37.607679  3441 layer_factory.hpp:77] Creating layer relu4
+I0414 05:11:37.607686  3441 net.cpp:84] Creating Layer relu4
+I0414 05:11:37.607692  3441 net.cpp:406] relu4 <- ip2
+I0414 05:11:37.607705  3441 net.cpp:367] relu4 -> ip2 (in-place)
+I0414 05:11:37.607853  3441 net.cpp:122] Setting up relu4
+I0414 05:11:37.607861  3441 net.cpp:129] Top shape: 1 200 (200)
+I0414 05:11:37.607864  3441 net.cpp:137] Memory required for data: 177920
+I0414 05:11:37.607869  3441 layer_factory.hpp:77] Creating layer ip3
+I0414 05:11:37.607877  3441 net.cpp:84] Creating Layer ip3
+I0414 05:11:37.607883  3441 net.cpp:406] ip3 <- ip2
+I0414 05:11:37.607890  3441 net.cpp:380] ip3 -> ip3
+I0414 05:11:37.607921  3441 net.cpp:122] Setting up ip3
+I0414 05:11:37.607929  3441 net.cpp:129] Top shape: 1 10 (10)
+I0414 05:11:37.607933  3441 net.cpp:137] Memory required for data: 177960
+I0414 05:11:37.607942  3441 layer_factory.hpp:77] Creating layer prob
+I0414 05:11:37.607950  3441 net.cpp:84] Creating Layer prob
+I0414 05:11:37.607956  3441 net.cpp:406] prob <- ip3
+I0414 05:11:37.607962  3441 net.cpp:380] prob -> prob
+I0414 05:11:37.608108  3441 net.cpp:122] Setting up prob
+I0414 05:11:37.608117  3441 net.cpp:129] Top shape: 1 10 (10)
+I0414 05:11:37.608120  3441 net.cpp:137] Memory required for data: 178000
+I0414 05:11:37.608125  3441 net.cpp:200] prob does not need backward computation.
+I0414 05:11:37.608130  3441 net.cpp:200] ip3 does not need backward computation.
+I0414 05:11:37.608135  3441 net.cpp:200] relu4 does not need backward computation.
+I0414 05:11:37.608140  3441 net.cpp:200] ip2 does not need backward computation.
+I0414 05:11:37.608144  3441 net.cpp:200] relu3 does not need backward computation.
+I0414 05:11:37.608148  3441 net.cpp:200] ip1 does not need backward computation.
+I0414 05:11:37.608153  3441 net.cpp:200] pool2 does not need backward computation.
+I0414 05:11:37.608160  3441 net.cpp:200] relu2 does not need backward computation.
+I0414 05:11:37.608163  3441 net.cpp:200] conv2 does not need backward computation.
+I0414 05:11:37.608168  3441 net.cpp:200] pool1 does not need backward computation.
+I0414 05:11:37.608173  3441 net.cpp:200] relu1 does not need backward computation.
+I0414 05:11:37.608178  3441 net.cpp:200] conv1 does not need backward computation.
+I0414 05:11:37.608184  3441 net.cpp:200] data does not need backward computation.
+I0414 05:11:37.608188  3441 net.cpp:242] This network produces output prob
+I0414 05:11:37.608201  3441 net.cpp:255] Network initialization done.
+I0414 05:11:37.610461  3441 net.cpp:744] Ignoring source layer CNN
+I0414 05:11:37.611027  3441 net.cpp:744] Ignoring source layer loss
+Misclassification::  /dataset-01/test/class_5/2369.png Predicted: 3 True:  5 Acc. Accuracy:  88.8888888889
+Misclassification::  /dataset-01/test/class_3/3475.png Predicted: 7 True:  3 Acc. Accuracy:  94.1176470588
+Misclassification::  /dataset-01/test/class_6/2135.png Predicted: 1 True:  6 Acc. Accuracy:  95.8904109589
+Misclassification::  /dataset-01/test/class_7/1260.png Predicted: 1 True:  7 Acc. Accuracy:  95.8762886598
+Misclassification::  /dataset-01/test/class_8/6755.png Predicted: 9 True:  8 Acc. Accuracy:  97.005988024
+Misclassification::  /dataset-01/test/class_7/3767.png Predicted: 2 True:  7 Acc. Accuracy:  98.1308411215
+Misclassification::  /dataset-01/test/class_3/1828.png Predicted: 7 True:  3 Acc. Accuracy:  97.8527607362
+Misclassification::  /dataset-01/test/class_8/1319.png Predicted: 0 True:  8 Acc. Accuracy:  98.0582524272
+Misclassification::  /dataset-01/test/class_0/6597.png Predicted: 7 True:  0 Acc. Accuracy:  98.2922201139
+Misclassification::  /dataset-01/test/class_9/1414.png Predicted: 7 True:  9 Acc. Accuracy:  98.1412639405
+Misclassification::  /dataset-01/test/class_8/4731.png Predicted: 7 True:  8 Acc. Accuracy:  98.1937602627
+Misclassification::  /dataset-01/test/class_6/445.png Predicted: 0 True:  6 Acc. Accuracy:  98.0551053485
+Misclassification::  /dataset-01/test/class_9/2414.png Predicted: 4 True:  9 Acc. Accuracy:  97.9876160991
+Misclassification::  /dataset-01/test/class_5/720.png Predicted: 8 True:  5 Acc. Accuracy:  97.8395061728
+Misclassification::  /dataset-01/test/class_6/3520.png Predicted: 4 True:  6 Acc. Accuracy:  97.7375565611
+Misclassification::  /dataset-01/test/class_3/5734.png Predicted: 7 True:  3 Acc. Accuracy:  97.8319783198
+Misclassification::  /dataset-01/test/class_6/1181.png Predicted: 1 True:  6 Acc. Accuracy:  97.8986402967
+Misclassification::  /dataset-01/test/class_8/4956.png Predicted: 4 True:  8 Acc. Accuracy:  97.8021978022
+Misclassification::  /dataset-01/test/class_7/9009.png Predicted: 2 True:  7 Acc. Accuracy:  97.9120879121
+Misclassification::  /dataset-01/test/class_5/5997.png Predicted: 9 True:  5 Acc. Accuracy:  97.9423868313
+Misclassification::  /dataset-01/test/class_3/4443.png Predicted: 2 True:  3 Acc. Accuracy:  98.0169971671
+Misclassification::  /dataset-01/test/class_2/2462.png Predicted: 0 True:  2 Acc. Accuracy:  97.9704797048
+Misclassification::  /dataset-01/test/class_5/9770.png Predicted: 0 True:  5 Acc. Accuracy:  97.8956999085
+Misclassification::  /dataset-01/test/class_5/9729.png Predicted: 6 True:  5 Acc. Accuracy:  98.1609195402
+Misclassification::  /dataset-01/test/class_6/2654.png Predicted: 1 True:  6 Acc. Accuracy:  98.1003039514
+Misclassification::  /dataset-01/test/class_8/1530.png Predicted: 7 True:  8 Acc. Accuracy:  98.0317940954
+Misclassification::  /dataset-01/test/class_8/4807.png Predicted: 0 True:  8 Acc. Accuracy:  98.0505415162
+Misclassification::  /dataset-01/test/class_2/9664.png Predicted: 7 True:  2 Acc. Accuracy:  98.1081081081
+Misclassification::  /dataset-01/test/class_2/4248.png Predicted: 1 True:  2 Acc. Accuracy:  98.2349360925
+Misclassification::  /dataset-01/test/class_7/3808.png Predicted: 8 True:  7 Acc. Accuracy:  98.3480176211
+Misclassification::  /dataset-01/test/class_8/542.png Predicted: 5 True:  8 Acc. Accuracy:  98.4239959329
+Misclassification::  /dataset-01/test/class_9/1709.png Predicted: 5 True:  9 Acc. Accuracy:  98.4578313253
+Misclassification::  /dataset-01/test/class_9/2293.png Predicted: 0 True:  9 Acc. Accuracy:  98.4149855908
+Misclassification::  /dataset-01/test/class_7/1226.png Predicted: 2 True:  7 Acc. Accuracy:  98.5054945055
+Misclassification::  /dataset-01/test/class_9/2406.png Predicted: 4 True:  9 Acc. Accuracy:  98.6252945797
+Misclassification::  /dataset-01/test/class_5/5937.png Predicted: 3 True:  5 Acc. Accuracy:  98.6471251409
+Misclassification::  /dataset-01/test/class_2/4205.png Predicted: 0 True:  2 Acc. Accuracy:  98.6296296296
+Misclassification::  /dataset-01/test/class_8/1878.png Predicted: 3 True:  8 Acc. Accuracy:  98.6567691764
+Misclassification::  /dataset-01/test/class_8/4639.png Predicted: 9 True:  8 Acc. Accuracy:  98.7103174603
+Misclassification::  /dataset-01/test/class_5/3558.png Predicted: 0 True:  5 Acc. Accuracy:  98.7212276215
+Misclassification::  /dataset-01/test/class_2/2488.png Predicted: 4 True:  2 Acc. Accuracy:  98.7380732533
+Misclassification::  /dataset-01/test/class_9/882.png Predicted: 7 True:  9 Acc. Accuracy:  98.7525987526
+Misclassification::  /dataset-01/test/class_3/5973.png Predicted: 8 True:  3 Acc. Accuracy:  98.7434248977
+Misclassification::  /dataset-01/test/class_2/9768.png Predicted: 0 True:  2 Acc. Accuracy:  98.7888797137
+Misclassification::  /dataset-01/test/class_9/5757.png Predicted: 7 True:  9 Acc. Accuracy:  98.7831260141
+Misclassification::  /dataset-01/test/class_6/4838.png Predicted: 5 True:  6 Acc. Accuracy:  98.7749667111
+Misclassification::  /dataset-01/test/class_9/3005.png Predicted: 1 True:  9 Acc. Accuracy:  98.7546369899
+Misclassification::  /dataset-01/test/class_9/9587.png Predicted: 4 True:  9 Acc. Accuracy:  98.7783150929
+Misclassification::  /dataset-01/test/class_9/1901.png Predicted: 4 True:  9 Acc. Accuracy:  98.8252217694
+Misclassification::  /dataset-01/test/class_9/4163.png Predicted: 0 True:  9 Acc. Accuracy:  98.8018212317
+Misclassification::  /dataset-01/test/class_5/2597.png Predicted: 3 True:  5 Acc. Accuracy:  98.7885985748
+Misclassification::  /dataset-01/test/class_8/4879.png Predicted: 6 True:  8 Acc. Accuracy:  98.773006135
+Misclassification::  /dataset-01/test/class_3/2953.png Predicted: 5 True:  3 Acc. Accuracy:  98.9060887513
+Misclassification::  /dataset-01/test/class_3/1128.png Predicted: 7 True:  3 Acc. Accuracy:  98.905775076
+Misclassification::  /dataset-01/test/class_2/646.png Predicted: 6 True:  2 Acc. Accuracy:  98.8917993149
+Misclassification::  /dataset-01/test/class_0/1621.png Predicted: 6 True:  0 Acc. Accuracy:  98.8817891374
+Misclassification::  /dataset-01/test/class_2/2098.png Predicted: 0 True:  2 Acc. Accuracy:  98.8631830874
+Misclassification::  /dataset-01/test/class_3/4740.png Predicted: 5 True:  3 Acc. Accuracy:  98.8578180386
+Misclassification::  /dataset-01/test/class_9/2863.png Predicted: 4 True:  9 Acc. Accuracy:  98.8627602159
+Misclassification::  /dataset-01/test/class_2/659.png Predicted: 1 True:  2 Acc. Accuracy:  98.8793425476
+Misclassification::  /dataset-01/test/class_6/2118.png Predicted: 0 True:  6 Acc. Accuracy:  98.8642710855
+Misclassification::  /dataset-01/test/class_1/6783.png Predicted: 6 True:  1 Acc. Accuracy:  98.8554550489
+Misclassification::  /dataset-01/test/class_8/1717.png Predicted: 0 True:  8 Acc. Accuracy:  98.8819875776
+Misclassification::  /dataset-01/test/class_9/2939.png Predicted: 5 True:  9 Acc. Accuracy:  98.9037341555
+Misclassification::  /dataset-01/test/class_9/1247.png Predicted: 5 True:  9 Acc. Accuracy:  98.8960597826
+Misclassification::  /dataset-01/test/class_8/6555.png Predicted: 9 True:  8 Acc. Accuracy:  98.8823031329
+Misclassification::  /dataset-01/test/class_8/3559.png Predicted: 5 True:  8 Acc. Accuracy:  98.8712938005
+Misclassification::  /dataset-01/test/class_3/5955.png Predicted: 8 True:  3 Acc. Accuracy:  98.896999189
+Misclassification::  /dataset-01/test/class_9/3869.png Predicted: 4 True:  9 Acc. Accuracy:  98.8952929875
+Misclassification::  /dataset-01/test/class_9/6592.png Predicted: 4 True:  9 Acc. Accuracy:  98.8796414853
+Misclassification::  /dataset-01/test/class_2/326.png Predicted: 1 True:  2 Acc. Accuracy:  98.8848751374
+Misclassification::  /dataset-01/test/class_9/2387.png Predicted: 1 True:  9 Acc. Accuracy:  98.8707653701
+Misclassification::  /dataset-01/test/class_6/1014.png Predicted: 0 True:  6 Acc. Accuracy:  98.8694440142
+Misclassification::  /dataset-01/test/class_3/4256.png Predicted: 0 True:  3 Acc. Accuracy:  98.8940367658
+Misclassification::  /dataset-01/test/class_8/3727.png Predicted: 9 True:  8 Acc. Accuracy:  98.8900399586
+Misclassification::  /dataset-01/test/class_8/8408.png Predicted: 5 True:  8 Acc. Accuracy:  98.8955093736
+Misclassification::  /dataset-01/test/class_9/9642.png Predicted: 7 True:  9 Acc. Accuracy:  98.8920863309
+Misclassification::  /dataset-01/test/class_9/4761.png Predicted: 4 True:  9 Acc. Accuracy:  98.8918880523
+Misclassification::  /dataset-01/test/class_3/449.png Predicted: 5 True:  3 Acc. Accuracy:  98.8800680465
+Misclassification::  /dataset-01/test/class_4/247.png Predicted: 6 True:  4 Acc. Accuracy:  98.8793948732
+Misclassification::  /dataset-01/test/class_6/3422.png Predicted: 0 True:  6 Acc. Accuracy:  98.8812154696
+Misclassification::  /dataset-01/test/class_7/6576.png Predicted: 1 True:  7 Acc. Accuracy:  98.8860209211
+Misclassification::  /dataset-01/test/class_9/2720.png Predicted: 4 True:  9 Acc. Accuracy:  98.8767086209
+Misclassification::  /dataset-01/test/class_9/1232.png Predicted: 4 True:  9 Acc. Accuracy:  98.8644044883
+Misclassification::  /dataset-01/test/class_4/1112.png Predicted: 6 True:  4 Acc. Accuracy:  98.8871432312
+Misclassification::  /dataset-01/test/class_8/4497.png Predicted: 7 True:  8 Acc. Accuracy:  98.8888888889
+Misclassification::  /dataset-01/test/class_0/6651.png Predicted: 6 True:  0 Acc. Accuracy:  98.8821791083
+Misclassification::  /dataset-01/test/class_9/2426.png Predicted: 4 True:  9 Acc. Accuracy:  98.8725176169
+Misclassification::  /dataset-01/test/class_8/2896.png Predicted: 0 True:  8 Acc. Accuracy:  98.8877780555
+Misclassification::  /dataset-01/test/class_8/947.png Predicted: 9 True:  8 Acc. Accuracy:  98.8769653107
+Misclassification::  /dataset-01/test/class_9/3985.png Predicted: 4 True:  9 Acc. Accuracy:  98.8715277778
+Misclassification::  /dataset-01/test/class_2/4176.png Predicted: 7 True:  2 Acc. Accuracy:  98.8978075955
+Misclassification::  /dataset-01/test/class_7/1039.png Predicted: 2 True:  7 Acc. Accuracy:  98.9257248469
+Misclassification::  /dataset-01/test/class_2/583.png Predicted: 7 True:  2 Acc. Accuracy:  98.9209046034
+Misclassification::  /dataset-01/test/class_5/1393.png Predicted: 3 True:  5 Acc. Accuracy:  98.942799911
+Misclassification::  /dataset-01/test/class_1/3073.png Predicted: 2 True:  1 Acc. Accuracy:  98.9521938441
+Misclassification::  /dataset-01/test/class_9/4823.png Predicted: 4 True:  9 Acc. Accuracy:  98.9541778976
+Misclassification::  /dataset-01/test/class_3/2109.png Predicted: 7 True:  3 Acc. Accuracy:  98.9744663039
+Misclassification::  /dataset-01/test/class_8/582.png Predicted: 2 True:  8 Acc. Accuracy:  98.989280245
+Misclassification::  /dataset-01/test/class_2/3474.png Predicted: 7 True:  2 Acc. Accuracy:  98.9801121877
+Misclassification::  /dataset-01/test/class_9/9692.png Predicted: 7 True:  9 Acc. Accuracy:  98.9751395231
+Misclassification::  /dataset-01/test/class_0/6532.png Predicted: 5 True:  0 Acc. Accuracy:  98.9660415611
+Misclassification::  /dataset-01/test/class_9/6571.png Predicted: 7 True:  9 Acc. Accuracy:  98.9606458123
+Misclassification::  /dataset-01/test/class_2/6035.png Predicted: 0 True:  2 Acc. Accuracy:  98.9586462401
+
+FINAL ACCURACY:  98.96 %
+
+Confusion Matrix: 
+[[ 976    0    0    0    0    1    2    1    0    0]
+ [   0 1133    1    0    0    0    1    0    0    0]
+ [   5    3 1018    0    1    0    1    4    0    0]
+ [   1    0    1  998    0    3    0    5    2    0]
+ [   0    0    0    0  980    0    2    0    0    0]
+ [   2    0    0    4    0  883    1    0    1    1]
+ [   4    3    0    0    1    1  949    0    0    0]
+ [   0    2    4    0    0    0    0 1021    1    0]
+ [   4    0    1    1    1    3    1    3  955    5]
+ [   2    2    0    0   13    3    0    6    0  983]]
+
+Normalized Confusion Matrix: 
+[[1.   0.   0.   0.   0.   0.   0.   0.   0.   0.  ]
+ [0.   1.   0.   0.   0.   0.   0.   0.   0.   0.  ]
+ [0.   0.   0.99 0.   0.   0.   0.   0.   0.   0.  ]
+ [0.   0.   0.   0.99 0.   0.   0.   0.   0.   0.  ]
+ [0.   0.   0.   0.   1.   0.   0.   0.   0.   0.  ]
+ [0.   0.   0.   0.   0.   0.99 0.   0.   0.   0.  ]
+ [0.   0.   0.   0.   0.   0.   0.99 0.   0.   0.  ]
+ [0.   0.   0.   0.   0.   0.   0.   0.99 0.   0.  ]
+ [0.   0.   0.   0.   0.   0.   0.   0.   0.98 0.01]
+ [0.   0.   0.   0.   0.01 0.   0.   0.01 0.   0.97]]
+
+* rows: true, cols: pred
+
+Precision (micro):  98.961 %
+Precision (macro):  98.960 %
+
+Recall (micro):  98.951 %
+Recall (macro):  98.960 %
+
+F1 score (micro):  98.953 %
+F1 score (macro):  98.960 %
+
+Accuracy: 98.960 %
