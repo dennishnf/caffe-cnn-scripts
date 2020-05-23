@@ -86,5 +86,5 @@ $ python visualize_example.py
 
 GNU General Public License, version 3 (GPLv3).
 
-You can visit my personal website: [http://dennishnf.com](http://dennishnf.com).
+You can visit my personal website: [http://dennishnf.com](http://dennishnf.com)
 
