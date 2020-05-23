@@ -86,5 +86,10 @@ $ python visualize_example.py
 
 GNU General Public License, version 3 (GPLv3).
 
-You can visit my personal website: [http://dennishnf.com](http://dennishnf.com)
+
+## About ##
+
+By: Dennis Núñez-Fernández
+
+Website: [http://dennishnf.com](http://dennishnf.com)
 
